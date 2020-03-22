@@ -3,6 +3,7 @@ import blockImg from './assets/block.png';
 import exitImg from './assets/exit.png';
 import pusherImg from './assets/386402636.png';
 import level1 from './levels/level1.txt';
+import level2 from './levels/level2.txt';
 
 const tileSize = 48;
 const gameRect = {
@@ -103,7 +104,11 @@ function preload() {
 }
 
 function create() {
-  const levelData = parseLevelData(level1);
+  const levelData = parseLevelData(level2);
+
+  const background = this.add.graphics();
+  background.fillStyle(0x2b7840, 1);
+  background.fillRect(gameRect.x, gameRect.y, gameRect.width, gameRect.height);
 
   const pusher = this.add.sprite(...levelData.pusherLocation, 'pusher');
   const exit = this.add.sprite(...levelData.exitLocation, 'exit');
@@ -111,7 +116,12 @@ function create() {
     this.add.sprite(...loc, 'block')
   );
 
+  // const lasers = this.add.graphics();
+  // lasers.fillStyle(0x78312b, 0.8);
+  // lasers.fillRect(gameRect.x, 300, gameRect.width, 20);
+
   const restartLevel = () => {
+    background.destroy();
     pusher.destroy();
     exit.destroy();
     blocks.forEach((block) => block.destroy());
@@ -121,7 +131,7 @@ function create() {
   this.anims.create({
     key: 'walk-down',
     frames: this.anims.generateFrameNumbers('pusher', { start: 0, end: 2 }),
-    frameRate: 10,
+    frameRate: 14,
     repeat: 0,
     yoyo: true,
   });
@@ -132,7 +142,7 @@ function create() {
       start: 12,
       end: 14,
     }),
-    frameRate: 10,
+    frameRate: 14,
     repeat: 0,
     yoyo: true,
   });
@@ -143,7 +153,7 @@ function create() {
       start: 24,
       end: 26,
     }),
-    frameRate: 10,
+    frameRate: 14,
     repeat: 0,
     yoyo: true,
   });
@@ -154,14 +164,14 @@ function create() {
       start: 36,
       end: 38,
     }),
-    frameRate: 10,
+    frameRate: 14,
     repeat: 0,
     yoyo: true,
   });
 
   let isMoving = false;
   const tweenParams = {
-    duration: 15,
+    duration: 6,
     useFrames: true,
     onComplete: () => {
       isMoving = false;
