@@ -17,7 +17,7 @@ const getTranslatedCoordinate = (x, y) => [
   y * tileSize + gameRect.y + tileSize / 2,
 ];
 
-const getLevelData = (levelTxt) => {
+const parseLevelData = (levelTxt) => {
   const levelData = {
     blockLocations: [],
   };
@@ -103,9 +103,7 @@ function preload() {
 }
 
 function create() {
-  // https://phaser.io/tutorials/making-your-first-phaser-3-game/part5
-
-  const levelData = getLevelData(level1);
+  const levelData = parseLevelData(level1);
 
   const pusher = this.add.sprite(...levelData.pusherLocation, 'pusher');
   const exit = this.add.sprite(...levelData.exitLocation, 'exit');
