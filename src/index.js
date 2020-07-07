@@ -8,9 +8,9 @@ import level2 from './levels/level2.txt';
 const tileSize = 48;
 const gameRect = {
   x: 16,
-  y: 12,
+  y: 48,
   width: 768,
-  height: 576,
+  height: 612,
 };
 
 const getTranslatedCoordinate = (x, y) => [
@@ -85,7 +85,7 @@ const config = {
   type: Phaser.AUTO,
   parent: 'block-pusher',
   width: 800,
-  height: 600,
+  height: 678,
   scene: {
     preload: preload,
     create: create,
@@ -105,6 +105,8 @@ function preload() {
 
 function create() {
   const levelData = parseLevelData(level2);
+  let currLevel = 1;
+  let numMoves = 0;
 
   const background = this.add.graphics();
   background.fillStyle(0x2b7840, 1);
@@ -115,6 +117,22 @@ function create() {
   const blocks = levelData.blockLocations.map((loc) =>
     this.add.sprite(...loc, 'block')
   );
+
+  const style = { font: '36px Arial', fill: '#ffffff' };
+  const numMovesText = this.add.text(16, 10, 'Number of Moves: 0', {
+    ...style,
+    align: 'left',
+  });
+  const levelText = this.add.text(662, 10, 'Level: 1', {
+    ...style,
+    align: 'right',
+  });
+
+  const updateStatus = () => {
+    console.log(numMoves);
+    numMovesText.setText(`Number of Moves: ${numMoves}`);
+    levelText.setText(`Level: ${currLevel}`);
+  };
 
   // const lasers = this.add.graphics();
   // lasers.fillStyle(0x78312b, 0.8);
@@ -241,6 +259,8 @@ function create() {
       ...getRelativeLoc(direction),
       targets,
     });
+    numMoves++;
+    updateStatus();
   };
 
   this.input.keyboard.on('keydown_DOWN', () => handleMove('down'));
