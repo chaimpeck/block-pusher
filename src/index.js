@@ -263,8 +263,8 @@ function create() {
     updateStatus();
   };
 
-  this.input.keyboard.on('keydown_DOWN', () => handleMove('down'));
-  this.input.keyboard.on('keydown_LEFT', () => handleMove('left'));
-  this.input.keyboard.on('keydown_RIGHT', () => handleMove('right'));
-  this.input.keyboard.on('keydown_UP', () => handleMove('up'));
+  this.input.keyboard.on('keydown-DOWN', () => handleMove('down'));
+  this.input.keyboard.on('keydown-LEFT', () => handleMove('left'));
+  this.input.keyboard.on('keydown-RIGHT', () => handleMove('right'));
+  this.input.keyboard.on('keydown-UP', () => handleMove('up'));
 }
